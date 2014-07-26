@@ -1,0 +1,9 @@
+/* TEAM */
+Chief Designer: [Your Designer]
+Web Application Engineer: [Your Developer]
+Site: http://www.yoursite.com
+Twitter: @yourtwitterhandle
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript
+Software: AtomMVC
