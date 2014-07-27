@@ -100,7 +100,7 @@ class Validator {
         if(filter_var($value, FILTER_VALIDATE_EMAIL) !== false) {
             $valid = true;
         }
-
+		
         return $valid;
     }
     
@@ -161,8 +161,8 @@ class Validator {
     
     public function length($value, $length) {
         
-        $valid = false; 
-
+        $valid = false;
+		
         if($this->numeric($length)) {
             
             $func = function_exists('mb_strlen') ? 'mb_strlen' : 'strlen';
@@ -174,8 +174,8 @@ class Validator {
     
     public function max($value, $max) {
         
-        $valid = false; 
-
+        $valid = false;
+		
         if($this->numeric($max)) {
             
             $func = function_exists('mb_strlen') ? 'mb_strlen' : 'strlen';
@@ -187,8 +187,8 @@ class Validator {
     
     public function min($value, $min) {
         
-        $valid = false; 
-
+        $valid = false;
+		
         if($this->numeric($min)) {
             
             $func = function_exists('mb_strlen') ? 'mb_strlen' : 'strlen';
@@ -215,14 +215,14 @@ class Validator {
             }
             
             $validMin = $this->min($value, min($params));
-            $validMax = $this->max($value,  max($params));
+            $validMax = $this->max($value, max($params));
             $valid = $validMin && $validMax;
         }
         
         return $valid;
     }
     
-    public function int($value) {
+    public function validInt($value) {
         
         $valid = false;
         
@@ -285,7 +285,7 @@ class Validator {
         }
         
         if(is_array($fields)) {
-
+			
             foreach($this->rules as $name => $ruleConfig) {
                 
                 if(array_key_exists($name, $fields)) {
@@ -304,25 +304,29 @@ class Validator {
                         
                     } else {
                         
-                        $pass = false;
+                        $pass = true;
+						$requiredPass = true;
                         
                         if($required) {
                             
-                            $pass = $this->required($value);
+                            $requiredPass = $this->required($value);
+							
+							$valid = $valid && $requiredPass;
                             
-                            $this->updateErrors($pass, $name, $requiredKey, $label);
-                            
-                        } else {
+                            $this->addError($requiredPass, $name, $requiredKey, $label);
+                        }
+						
+						if($requiredPass) {
                             
                             foreach($rules as $rule => $params) {
                                 
                                 $pass = $this->{$rule}($value, $params);
+								
+								$valid = $valid && $pass;
                                 
-                                $this->updateErrors($pass, $name, $rule, $label);
+                                $this->addError($pass, $name, $rule, $label);
                             }
                         }
-                        
-                        $valid = $valid && $pass;
                     }
                 }
             }
@@ -331,7 +335,7 @@ class Validator {
         return $valid;
     }
     
-    protected function updateErrors($pass, $name, $rule, $label) {
+    protected function addError($pass, $name, $rule, $label) {
         
         if($pass === false) {
             $this->errors[$name][] = $this->compileErrorMessage($rule, $label);
