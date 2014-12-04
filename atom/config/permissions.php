@@ -29,44 +29,4 @@ return [
      *     ]
      * ]
      */
-
-    //"dashboard" => [
-    //    "activity" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "billing" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "bookmarks" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "create-aircraft" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "edit-aircraft" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "inventory" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "messages" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "preferences" => [
-    //        "deny" => [UserType::Anonymous]],
-    //    "profile" => [
-    //        "deny" => [UserType::Anonymous]]]
-
-    // *** Testing ***
-    //'home' => [
-    //    'ALL' => [
-    //        'allow' => [1],
-    //        'failedRedirect' => '/login'
-    //    ]
-    //],
-    //'about' => [
-    //    'ALL' => [
-    //        'allow' => [1],
-    //        'failedRedirect' => '/login'
-    //    ]
-    //],
-    //'contact' => [
-    //    'ALL' => [
-    //        'allow' => [1],
-    //        'failedRedirect' => '/account/login'
-    //    ]
-    //]
 ];
