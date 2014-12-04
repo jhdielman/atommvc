@@ -15272,7 +15272,7 @@ class HTMLPurifier_DefinitionCache_Serializer extends HTMLPurifier_DefinitionCac
         }
         if (!is_dir($directory)) {
             $base = $this->generateBaseDirectoryPath($config);
-            
+
             if (!is_dir($base)) {
                 trigger_error(
                     'Base directory ' . $base . ' does not exist,

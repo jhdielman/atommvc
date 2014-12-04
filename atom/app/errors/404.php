@@ -11,7 +11,7 @@
 
 <body>
     <div class="dialog">
-        <h1><?php echo "Error $code: $message"; ?></h1>
+        <h1><?= "Error $code: $message"; ?></h1>
         <p>
             The page you were looking for doesn't exist.
             You may have mistyped the address or the page may have moved.

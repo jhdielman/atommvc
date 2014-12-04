@@ -3,54 +3,48 @@
 namespace Atom;
 
 class Bootstrapper {
-	
-	public static function load(array $directories) {
-		
-		//$start_time = microtime(TRUE);
-		
-		foreach($directories as $directory => $files) {
-			
-			if(count($files)) {
-				
-				foreach($files as $file) {
-					
-					require $directory.$file.PHPEXT;
-				}
-				
-			} else {
-				
-				$dir = new \DirectoryIterator($directory);
-				
-				foreach ($dir as $file) {
-					
-					if (!$file->isDot()) {
-						
-						require $directory.$file->getFilename();
-					}
-				}
-				
-				//$dir = opendir($directory);
-				//
-				//while(($file = readdir($dir)) !== false) {
-				//	
-				//	if ( $file == '.' || $file == '..' ) {
-				//		continue;
-				//	}
-				//	
-				//	require $directory.$file;
-				//}
-				//
-				//closedir($dir);
-				
-			}
-		}
-		
-		//// mark the stop time
-		//$stop_time = microtime(TRUE);
-		// 
-		//// get the difference in seconds
-		//$time = $stop_time - $start_time;
-		// 
-		//print "Elapsed time was $time seconds.";
-	}
+    
+    protected static $dependencies = [
+        '/interfaces',
+        '/traits',
+        '/abstractions'
+    ];
+    
+    public static function load(array $directories) {
+        
+        foreach($directories as $directory => $files) {
+            if(count($files)) {
+                foreach($files as $file) {
+                    $path = $directory.$file.PHPEXT;
+                    if (is_file($path)) {
+                        require $path;
+                    }
+                }
+            } else {
+                $dirs = static::getCodePaths($directory);
+                foreach($dirs as $dir) {
+                    try {
+                        $dir = new \DirectoryIterator($dir);
+                        foreach ($dir as $item) {
+                            if ($item->isFile() && !$item->isDot()) {
+                                require $item->getPathname();
+                            }
+                        }
+                    } catch(\Exception $ex) {
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    protected static function getCodePaths($directory) {
+        $paths = [];
+        $directory = rtrim($directory,'/');
+        foreach(static::$dependencies as $dependency) {
+            array_push($paths, $directory.$dependency);
+        }
+        array_push($paths, $directory.'/');
+        return $paths;
+    }
 }

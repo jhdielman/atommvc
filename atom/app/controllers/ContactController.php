@@ -3,20 +3,20 @@
 namespace Atom;
 
 class ContactController extends Controller {
-	
-	public function index() {
-				
-		$model = new ContactModel();
-		
-		$model->fields = Input::post();
-		
-        if(Request::isPost() && $model->isValid()) {
-			
-			View::render('success', $model);
-			
+    
+    public function index() {
+        $model = new ContactModel();        
+        return $this->view('index', $model);
+    }
+    
+    public function postIndex() {
+        $model = new ContactModel(Input::post());
+        print_r($model->fields);
+        print_r($model->rules);
+        if($model->isValid()) {
+            return $this->view('success', $model);
         } else {
-			
-            View::render('index', $model);
+            return $this->view('index', $model);
         }
-	}
+    }
 }

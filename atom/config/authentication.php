@@ -6,10 +6,11 @@
  *
  * @copyright Copyright (c) 2014, Jason Dielman
  * @author Jason Dielman <jhdielman@gmail.com>
- * 
+ *
  */
 
 return [
-	'loginRedirect' => '/',
-	'logoutRedirect' => '/login'
+    'loginRedirect' => '/',
+    'loginFailedRedirect' => '/',
+    'logoutRedirect' => '/'
 ];

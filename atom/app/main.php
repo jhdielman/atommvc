@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2014, Jason Dielman
  * @author Jason Dielman <jhdielman@gmail.com>
- * 
+ *
  * The following class objects are compact implementations from Laravel's library.
  * I love their code and integrated them into the Atom library.
  * I'm not sure I could have written them better myself.
@@ -16,7 +16,7 @@
  * @see /lib/Pluralizer.php;
  * @see /lib/QueryBuilder.php;
  * @see /lib/QueryException.php;
- * 
+ *
  */
 
 
@@ -26,30 +26,22 @@ require dirname(__DIR__).'/config/constants.php';
 require 'Bootstrapper'.PHPEXT;
 
 $directories = [
-	
-	// Bootstrap the core abstractions
-	//	Note:	Calling 'Object' first since we may make that
-	//			the base object for everything... need to think
-	//			about architecture.
-	ATOM_CORE_PATH => [
-		'Object','Controller','DBObject','Model'
-	],
-	
-	// Bootstrap the main library
-	ATOM_LIB_PATH => [],
-	
-	// Bootstrap the third-party vendor plugins
-	ATOM_VENDOR_PATH => [
-		'htmlpurifier/HTMLPurifier',
-		'phpmailer/PHPMailerAutoload',
-		//'stripe/lib/Stripe'
-	],
-	
-	// Bootstrap the Client specific objects
-	ATOM_CLIENT_PATH => [],
-	
-	// Bootstrap out Models
-	ATOM_MODEL_PATH => []
+
+    // Bootstrap the main core path
+    ATOM_CORE_PATH => [],
+    
+    // Bootstrap the third-party vendor plugins
+    ATOM_VENDOR_PATH => [
+        'htmlpurifier/HTMLPurifier',
+        'phpmailer/PHPMailerAutoload',
+        'stripe/lib/Stripe'
+    ],
+
+    // Bootstrap the Client specific objects
+    ATOM_CLIENT_PATH => [],
+
+    // Bootstrap our Models
+    ATOM_MODEL_PATH => []
 ];
 
 // Load dependancies
